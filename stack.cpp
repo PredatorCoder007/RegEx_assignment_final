@@ -15,14 +15,21 @@ public:
     // Default Constructor
     Stack(){
         // Dynamically allocate memory for stack using keyword "new"
+        _stack = new int[MAX_SIZE];
         // Initialize top, size
+        _top = -1;
+        _size = 0;
         // set MAX_SIZE to whatever you want
+        MAX_SIZE = 999999;
     }
 
     // Additional Constructor
     Stack(int MAX_SIZE){
         // Dynamically allocate memory for queue using keyword "new"
+        _stack = new int[MAX_SIZE];
         // Initialize top, size
+        _top = -1;
+        _size = 0;
 
         // setting MAX_SIZE according to the parameter
         this->MAX_SIZE = MAX_SIZE;
@@ -33,6 +40,16 @@ public:
         // check if stack is full already
         // if insertion is successfull return true
         // else return false
+        if(_top >= MAX_SIZE - 1){
+            cout<<"Stack full already\n";
+            return false;
+        }
+
+        _top = _top+1;
+        _stack[_top] = elem;;
+        _size++;
+        return true;
+
     }
 
     int pop(){
