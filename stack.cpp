@@ -1,13 +1,14 @@
 #include <iostream>
+using namespace std;
 
 // THIS STRUCTURE IS JUST A GUIDELINE
 // FEEL FREE TO CHANGE WHATEVER YOU WANT
 
 class Stack{
 private:
-    int* s;
-    int top;
-    int size;
+    int* _stack;
+    int  _top;
+    int  _size;
     int MAX_SIZE;
 
 public:
@@ -57,14 +58,25 @@ public:
         // return the removed element
         // do not forget to change values of top, size appropriately
         // if stack is empty return -1
+        if(_top<0)
+        {
+            return -1;
+        }
+        int elem = _stack[_top];
+        _top = _top-1;
+        _size--;
+        return elem;
+
     }
 
     int get_size(){
         // return current size of stack
+        return _size;
     }
 
     int get_max_size(){
         // return max size of stack
+        return MAX_SIZE;
     }
 
 };
