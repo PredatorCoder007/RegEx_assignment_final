@@ -1,52 +1,89 @@
 // C++ code to implement the approach
 
-#include <bits/stdc++.h>
+#include<iostream>
+#include<vector>
 using namespace std;
 
-// Class describing a node of tree
-class Node {
-public:
-	int data;
-	Node* left;
-	Node* right;
-	//constructor
-	Node(int v)
-	{
-		this->data = v;
-		this->left = this->right = NULL;
-	}
+struct Node{
+  int data;
+  Node* left;
+  Node* right;
 };
 
-// Inorder Traversal
-void printInorder(Node* node)
+Node* create(int item)
 {
-	if (node == NULL)
-		return;
-
-	// Traverse left subtree
-	printInorder(node->left);
-
-	// Visit node
-	cout << node->data << " ";
-
-	// Traverse right subtree
-	printInorder(node->right);
+    Node* node = new Node;
+    node->data = item;
+    node->left = node->right = NULL;
+    return node;
 }
 
-// Driver code
-int main()
+//insert an element
+Node* insertion(Node* root, int item)
 {
-	// Build the tree
-	Node* root = new Node(100);
-	root->left = new Node(20);
-	root->right = new Node(200);
-	root->left->left = new Node(10);
-	root->left->right = new Node(30);
-	root->right->left = new Node(150);
-	root->right->right = new Node(300);
+    if(root == NULL)
+        return create(item);
+    if(item < root->data)
+        root->left = insertion(root->left, item);
+    else
+        root->right = insertion(root->right, item);
+    return root;
 
-	// Function call
-	cout << "Inorder Traversal: ";
-	printInorder(root);
-	return 0;
+}
+
+//find an element
+void _find(Node* &cur, int item, Node* &parent)
+{
+    while(cur!=NULL && cur->data != item)
+    {
+        parent = cur;
+        if(item < cur->data)
+            cur = cur->left;
+        else
+            cur = cur->right;
+    }
+}
+
+//inorder traversal
+void inorder_tr(Node* root)
+{
+    if(root == NULL)
+        return;
+    //traverse left subtree
+    inorder_tr(root->left);
+    //traverse root node
+    cout<<root->data<<" ";
+    //traverse right subtree
+    inorder_tr(root->right);
+}
+
+
+//inorder traversal vector
+void inorder_tr_vec(Node* root, vector<int>& sorted_vec)
+{
+    if(root == nullptr){
+        return;
+    }
+
+    inorder_tr_vec(root->left, sorted_vec);
+    sorted_vec.push_back(root->data);
+    inorder_tr_vec(root->right, sorted_vec);
+
+
+}
+//sort a vector using BST
+vector<int> sort_vector(const vector<int>& input_vec)
+{
+   Node* root = nullptr;
+
+   //construct BST
+   for(int num : input_vec){
+    root = insertion(root, num);
+    }
+
+   //perform inorder traversal
+   vector<int> sorted_vec;
+   inorder_tr_vec(root, sorted_vec);
+
+   return sorted_vec;
 }

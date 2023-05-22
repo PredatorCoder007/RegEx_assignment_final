@@ -69,7 +69,7 @@ void insert_after_element(Node* head, int target_value, int insert_value){
         current = current->next;
     }
 
-    cout<<"Element not found"<<endl;
+    return;
 }
 
 //find element after start and return its position
