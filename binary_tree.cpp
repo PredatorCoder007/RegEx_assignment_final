@@ -9,6 +9,7 @@ public:
 	int data;
 	Node* left;
 	Node* right;
+	//constructor
 	Node(int v)
 	{
 		this->data = v;
